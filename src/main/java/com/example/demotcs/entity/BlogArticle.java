@@ -21,6 +21,6 @@ public class BlogArticle {
     private String title;
     private String author;
     private String articleContent;
-    private String lostMsg;
+
 
 }

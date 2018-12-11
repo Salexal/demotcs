@@ -1,5 +1,6 @@
 package com.example.demotcs.Service.impl;
 
+import com.example.demotcs.Enum.ArticleStatus;
 import com.example.demotcs.Service.BlogArticleService;
 import com.example.demotcs.entity.BlogArticle;
 import com.example.demotcs.repository.BlogArticleRepository;
@@ -53,7 +54,11 @@ public class BlogArticleServiceImpl implements BlogArticleService {
 
     @Override
     public void changeArticleStatus(Integer id) {
-        BlogArticle blogArticle = (BlogArticle) repository.findById(id).get();
-       
+        BlogArticle blogArticle =  repository.findById(id).get();
+        if(blogArticle.getStatus()==0)
+            blogArticle.setStatus(ArticleStatus.DOWN.getCode());
+        else
+            blogArticle.setStatus(ArticleStatus.UP.getCode());
+         repository.save(blogArticle);
     }
 }
