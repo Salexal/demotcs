@@ -30,6 +30,6 @@ public interface BlogArticleService {
     /** 查类别*/
     public List<BlogArticle> queryAuthor(String author);
 
-
+    public void changeArticleStatus(Integer id);
 
 }

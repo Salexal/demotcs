@@ -50,4 +50,10 @@ public class BlogArticleServiceImpl implements BlogArticleService {
     public List<BlogArticle> queryAuthor(String author) {
         return repository.findByAuthor(author);
     }
+
+    @Override
+    public void changeArticleStatus(Integer id) {
+        BlogArticle blogArticle = (BlogArticle) repository.findById(id).get();
+       
+    }
 }

@@ -2,6 +2,7 @@ package com.example.demotcs.entity;
 
 import com.example.demotcs.Enum.ArticleStatus;
 import lombok.Data;
+import lombok.Getter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
