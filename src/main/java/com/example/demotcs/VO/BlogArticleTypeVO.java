@@ -8,21 +8,18 @@ import java.util.List;
 
 /**
  * @Author: Salexal.fww
- * @Date: 2018/12/11 21:15
+ * @Date: 2018/12/11 21:18
  * @Version 1.0
  * @Type
  */
 @Data
-public class BlogArticleVO {
+public class BlogArticleTypeVO {
+
 
     @JsonProperty("type")
     private Integer type;
-
-    @JsonProperty("author")
-    private String author;
-    @JsonProperty("text")
-    private String articleContent;
-    @JsonProperty("lostMessages")
-    private List<BlogArticleMessageInfoVO> lostMessage;
-
+    @JsonProperty("typeName")
+    private String typeName;
+    @JsonProperty("articleLists")
+    private List<BlogArticleVO> blogArticleVOList;
 }

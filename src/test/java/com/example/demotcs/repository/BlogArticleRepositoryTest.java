@@ -1,6 +1,7 @@
 package com.example.demotcs.repository;
 
 import com.example.demotcs.entity.BlogArticle;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +27,12 @@ public class BlogArticleRepositoryTest {
     public void save(){
         BlogArticle article = new BlogArticle();
         article.setStatus(0);
-        article.setArticleContent("fwwhaoshuai a ");
+        article.setArticleContent("this is test text 1");
         article.setAuthor("Salexal");
-        article.setLostMsg("文章好酷");
+        article.setType(1);
         article.setTitle("第一次的结果");
+        repository.save(article);
+
     }
 
     @Test

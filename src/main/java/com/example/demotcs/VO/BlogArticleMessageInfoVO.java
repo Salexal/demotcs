@@ -1,5 +1,6 @@
 package com.example.demotcs.VO;
 
+import lombok.Data;
 import lombok.Getter;
 
 /**
@@ -8,10 +9,10 @@ import lombok.Getter;
  * @Version 1.0
  * @Type
  */
-@Getter
+@Data
 public class BlogArticleMessageInfoVO {
 
-    private Integer id;
+//    private Integer id;
     private String author;
     private String message;
 

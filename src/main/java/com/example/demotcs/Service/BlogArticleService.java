@@ -25,7 +25,7 @@ public interface BlogArticleService {
     public List<BlogArticle> queryAll();
 
     /** 查类别*/
-    public List<BlogArticle> queryType(String type);
+    public List<BlogArticle> queryType(Integer type);
 
     /** 查类别*/
     public List<BlogArticle> queryAuthor(String author);

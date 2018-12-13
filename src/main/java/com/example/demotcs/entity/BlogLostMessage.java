@@ -5,6 +5,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -16,7 +17,7 @@ import javax.persistence.criteria.CriteriaBuilder;
  * @Type
  */
 @Data
-@RestController
+@Entity
 public class BlogLostMessage {
 
     @Id
@@ -25,8 +26,8 @@ public class BlogLostMessage {
     private Integer articleId;
     private String authorName;
     private String message;
-    @CreatedDate
-    private Long bg_time;
-    @LastModifiedDate
-    private Long update_time;
+//    @CreatedDate
+//    private Long bg_time;
+//    @LastModifiedDate
+//    private Long update_time;
 }

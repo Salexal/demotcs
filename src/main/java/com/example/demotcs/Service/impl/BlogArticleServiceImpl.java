@@ -39,11 +39,11 @@ public class BlogArticleServiceImpl implements BlogArticleService {
 
     @Override
     public List<BlogArticle> queryAll() {
-        return repository.findAll();
+        return repository.findByStatus(ArticleStatus.UP.getCode());
     }
 
     @Override
-    public List<BlogArticle> queryType(String type) {
+    public List<BlogArticle> queryType(Integer type) {
         return repository.findByType(type);
     }
 

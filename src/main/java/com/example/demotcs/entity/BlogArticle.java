@@ -16,7 +16,7 @@ public class BlogArticle {
     @Id
     @GeneratedValue
     private Integer id;
-    private String type;
+    private Integer type;
     private Integer status = ArticleStatus.UP.getCode();
     private String title;
     private String author;

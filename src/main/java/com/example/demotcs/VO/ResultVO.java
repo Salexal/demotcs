@@ -1,5 +1,6 @@
 package com.example.demotcs.VO;
 
+import lombok.Data;
 import lombok.Getter;
 
 /**
@@ -8,7 +9,7 @@ import lombok.Getter;
  * @Version 1.0
  * @Type
  */
-@Getter
+@Data
 public class ResultVO<T> {
 
     private Integer code;
