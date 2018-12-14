@@ -1,39 +1,34 @@
 package com.example.demotcs.repository;
 
-import com.example.demotcs.entity.User;
-import org.junit.Assert;
+import com.example.demotcs.entity.BlogLostMessage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.swing.*;
-
 import static org.junit.Assert.*;
 
 /**
  * @Author: Salexal.fww
- * @Date: 2018/12/10 20:48
+ * @Date: 2018/12/13 21:21
  * @Version 1.0
  * @Type
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class UserRepositoryTest {
+public class BlogLostMessageRepositoryTest {
 
     @Autowired
-    private UserRepository repository;
+    private BlogLostMessageRepository repository;
 
     @Test
-    public void saveTest(){
-        User user = new User();
-        user.setUserName("SiyuSni");
-        user.setPassword("123123");
-//        user.setRoles("user");
-        user.setUserIcon("http://xxxxxx.jpg");
-        repository.save(user);
+    public void save(){
+        BlogLostMessage message = new BlogLostMessage();
+        message.setArticleId(5);
+        message.setAuthorName("Salexal");
+        message.setMessage("我也是这么认为的");
 
+        repository.save(message);
     }
-
 }

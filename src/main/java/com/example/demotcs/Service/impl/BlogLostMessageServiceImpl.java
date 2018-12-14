@@ -22,4 +22,9 @@ public class BlogLostMessageServiceImpl implements BlogLostMessageService {
     public List<BlogLostMessage> findByArticleId(Integer id) {
         return repository.findByArticleId(id);
     }
+
+    @Override
+    public BlogLostMessage save(BlogLostMessage message) {
+        return repository.save(message);
+    }
 }
