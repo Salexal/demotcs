@@ -27,12 +27,17 @@ public class BlogArticleRepositoryTest {
     public void save(){
         BlogArticle article = new BlogArticle();
         article.setStatus(0);
-        article.setArticleContent("this is test text 1");
-        article.setAuthor("Salexal");
-        article.setType(1);
-        article.setTitle("第一次的结果");
+        article.setArticleContent("say fww zs");
+        article.setAuthor("cdx");
+        article.setType(33);
+//        article.setId(123);
+        article.setTitle("cdxcdx");
         repository.save(article);
 
+    }
+    @Test
+    public void delete(){
+        repository.deleteById(9);
     }
 
     @Test

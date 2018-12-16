@@ -1,6 +1,7 @@
 package com.example.demotcs.Service;
 
 import com.example.demotcs.entity.BlogArticle;
+import com.example.demotcs.entity.BlogUserArticle;
 
 import java.util.List;
 
@@ -11,6 +12,9 @@ import java.util.List;
  * @Type
  */
 public interface BlogArticleService {
+
+
+    public BlogArticle saveUserArticle(BlogUserArticle blogUserArticle);
 
     /** 増 */    /** 改 */
     public BlogArticle save(BlogArticle article);

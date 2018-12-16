@@ -22,5 +22,4 @@ public class BlogArticle {
     private String author;
     private String articleContent;
 
-
 }

@@ -3,8 +3,14 @@ package com.example.demotcs.Service.impl;
 import com.example.demotcs.Enum.ArticleStatus;
 import com.example.demotcs.Service.BlogArticleService;
 import com.example.demotcs.entity.BlogArticle;
+import com.example.demotcs.entity.BlogUserArticle;
+import com.example.demotcs.entity.User;
 import com.example.demotcs.repository.BlogArticleRepository;
+import com.example.demotcs.utils.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +26,18 @@ public class BlogArticleServiceImpl implements BlogArticleService {
 
     @Autowired
     private BlogArticleRepository repository;
+
+    @Override
+    public BlogArticle saveUserArticle(BlogUserArticle blogUserArticle) {
+        BlogArticle blogArticle = new BlogArticle();
+        blogArticle.setTitle(blogUserArticle.getTitle());
+//        String username = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        blogArticle.setAuthor(authentication.getName());
+        blogArticle.setType(blogUserArticle.getType());
+        blogArticle.setArticleContent(blogUserArticle.getArticleContent());
+        return repository.save(blogArticle);
+    }
 
     @Override
     public BlogArticle save(BlogArticle article) {

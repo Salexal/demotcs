@@ -12,6 +12,5 @@ import java.util.List;
  * @Type
  */
 public interface BlogLostMessageRepository extends JpaRepository<BlogLostMessage,Integer> {
-
         List<BlogLostMessage>  findByArticleId(Integer id);
 }

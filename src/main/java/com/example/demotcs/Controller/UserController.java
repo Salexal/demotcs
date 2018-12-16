@@ -3,6 +3,8 @@ package com.example.demotcs.Controller;
 import com.example.demotcs.Service.UserService;
 import com.example.demotcs.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,7 +30,7 @@ public class UserController {
     public List<User> findAll(){
         return userService.queryAll();
     }
-    @RequestMapping("findOne")
+    @RequestMapping("findByName")
     public User findByName(String userName){
         return userService.queryByUserName(userName);
     }

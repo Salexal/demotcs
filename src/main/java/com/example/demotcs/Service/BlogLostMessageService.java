@@ -14,5 +14,5 @@ public interface BlogLostMessageService {
 
     public List<BlogLostMessage> findByArticleId(Integer id);
 
-
+    public BlogLostMessage save(BlogLostMessage message);
 }
