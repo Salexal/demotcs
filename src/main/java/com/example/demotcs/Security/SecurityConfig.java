@@ -23,6 +23,7 @@ import javax.xml.ws.soap.Addressing;
  */
 @Configuration
  @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled=true)
 public class SecurityConfig  extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -43,10 +44,12 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
+                .defaultSuccessUrl("/index").failureUrl("/login?error").permitAll()
                 .and()
                 .authorizeRequests()
                 .antMatchers("/queryAll").permitAll()
-                .antMatchers("/list").authenticated()
+                .antMatchers("/list","/saveUserArticle").hasAnyAuthority("user","admin")
+                .antMatchers("/**","/findByName").hasAnyAuthority("admin")
                 .and()
                 .csrf().disable();
 //                .antMatchers("/*").hasAuthority("admin");
@@ -63,9 +66,6 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
 //                .withUser("zhangsan").password("123456").roles("user");
 //        auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).withUser("user1").password(new BCryptPasswordEncoder().encode("123456")).roles("user");
         auth.userDetailsService(customUserService());
-
-
-
     }
 
     private String getUsersByUsernameQuery(){

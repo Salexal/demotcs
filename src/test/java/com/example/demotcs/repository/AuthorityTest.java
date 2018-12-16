@@ -24,8 +24,8 @@ public class AuthorityTest {
     @Test
     public void save(){
         Authority authority = new Authority();
-        authority.setRoles("user");
-        authority.setUsername("SiyuSni");
+        authority.setUsername("admin");
+        authority.setRoles("admin");
         repository.save(authority);
     }
 

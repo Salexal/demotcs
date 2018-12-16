@@ -1,5 +1,6 @@
 package com.example.demotcs.repository;
 
+import com.example.demotcs.entity.Authority;
 import com.example.demotcs.entity.User;
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.swing.*;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -28,12 +31,15 @@ public class UserRepositoryTest {
     @Test
     public void saveTest(){
         User user = new User();
-        user.setUserName("SiyuSni");
+        user.setUserName("hello");
         user.setPassword("123123");
-//        user.setRoles("user");
         user.setUserIcon("http://xxxxxx.jpg");
         repository.save(user);
-
     }
-
+    @Test
+    public void find(){
+        User user = repository.findByUserName("Salexal");
+        System.out.println(user.getUsername());
+        Assert.assertNotNull(user);
+    }
 }
