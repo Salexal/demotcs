@@ -33,9 +33,6 @@ public class CustomUserService implements UserDetailsService {
         System.out.println("s:"+s);
         System.out.println("username:"+user.getUsername()+";password:"+user.getPassword());
 
-//        List<GrantedAuthority> authorities = new ArrayList<>();
-//        user.getRoles().forEach(roles ->authorities.add(new SimpleGrantedAuthority(roles.getUsername())));
-
         return user;
 
     }

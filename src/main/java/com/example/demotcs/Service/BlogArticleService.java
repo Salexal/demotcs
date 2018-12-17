@@ -1,7 +1,7 @@
 package com.example.demotcs.Service;
 
 import com.example.demotcs.entity.BlogArticle;
-import com.example.demotcs.entity.BlogUserArticle;
+import com.example.demotcs.entity.role_user.BlogUserArticle;
 
 import java.util.List;
 

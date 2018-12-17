@@ -7,7 +7,7 @@ import java.util.List;
 public interface UserService {
 
     /** 増 改*/
-    public User addUser(User user);
+    public String addUser(User user);
 
     /** 删 */
     public void deleteUser(Integer id);

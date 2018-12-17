@@ -22,7 +22,7 @@ import javax.xml.ws.soap.Addressing;
  * @Type
  */
 @Configuration
- @EnableWebSecurity
+@EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 public class SecurityConfig  extends WebSecurityConfigurerAdapter {
 
@@ -40,39 +40,24 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
         return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
     }
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
                 .defaultSuccessUrl("/index").failureUrl("/login?error").permitAll()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/queryAll").permitAll()
-                .antMatchers("/list","/saveUserArticle").hasAnyAuthority("user","admin")
-                .antMatchers("/**","/findByName").hasAnyAuthority("admin")
+                .antMatchers("/queryAll","saveUser").permitAll()
+                .antMatchers("/all/**","/role_user/**").authenticated()
+                .antMatchers("/role_admin/**").hasAnyAuthority("admin")
                 .and()
                 .csrf().disable();
-//                .antMatchers("/*").hasAuthority("admin");
     }
 
 
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.jdbcAuthentication().dataSource(dataSourceMySQL)
-//                .usersByUsernameQuery(this.getUsersByUsernameQuery())
-//                .authoritiesByUsernameQuery(this.getAuthoritiesByUsernameQuery());
-//        auth.inMemoryAuthentication()
-//                .withUser("zhangsan").password("123456").roles("user");
-//        auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).withUser("user1").password(new BCryptPasswordEncoder().encode("123456")).roles("user");
         auth.userDetailsService(customUserService());
     }
 
-    private String getUsersByUsernameQuery(){
-        return "select user_name,password from user where user_name = ? ";
-    }
-
-    private String getAuthoritiesByUsernameQuery(){
-        return "select username, roles from authority where username = ? ";
-    }
 }

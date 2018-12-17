@@ -23,12 +23,4 @@ public class UserRequest {
             return ((UserDetails)securityContext.getAuthentication().getPrincipal()).getUsername();
         }
 
-//    public static User getCurrentUser(){
-//        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-//        User user = (User)request.getAttribute(Requests.CURRENT_USER);
-//        return user;
-//    }
-
-
-
 }

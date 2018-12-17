@@ -2,8 +2,12 @@ package com.example.demotcs.Service.impl;
 
 import com.example.demotcs.Service.BlogLostMessageService;
 import com.example.demotcs.entity.BlogLostMessage;
+import com.example.demotcs.entity.role_user.UserLostMessage;
 import com.example.demotcs.repository.BlogLostMessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -13,6 +17,7 @@ import java.util.List;
  * @Version 1.0
  * @Type
  */
+@Service
 public class BlogLostMessageServiceImpl implements BlogLostMessageService {
 
     @Autowired
@@ -26,5 +31,15 @@ public class BlogLostMessageServiceImpl implements BlogLostMessageService {
     @Override
     public BlogLostMessage save(BlogLostMessage message) {
         return repository.save(message);
+    }
+
+    @Override
+    public BlogLostMessage saveUserLostMessage(UserLostMessage message) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        BlogLostMessage lostMessage = new BlogLostMessage();
+        lostMessage.setMessage(message.getMessage());
+        lostMessage.setArticleId(message.getArticleId());
+        lostMessage.setAuthorName(authentication.getName());
+        return repository.save(lostMessage);
     }
 }
