@@ -1,6 +1,7 @@
 package com.example.demotcs.Service;
 
 import com.example.demotcs.entity.BlogLostMessage;
+import com.example.demotcs.entity.role_user.UserLostMessage;
 
 import java.util.List;
 
@@ -15,4 +16,6 @@ public interface BlogLostMessageService {
     public List<BlogLostMessage> findByArticleId(Integer id);
 
     public BlogLostMessage save(BlogLostMessage message);
+
+    public BlogLostMessage saveUserLostMessage(UserLostMessage message);
 }

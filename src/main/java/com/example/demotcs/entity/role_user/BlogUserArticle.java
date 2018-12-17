@@ -1,4 +1,4 @@
-package com.example.demotcs.entity;
+package com.example.demotcs.entity.role_user;
 
 import com.example.demotcs.Enum.ArticleStatus;
 import lombok.Data;

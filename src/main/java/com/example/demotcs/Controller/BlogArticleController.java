@@ -2,6 +2,7 @@ package com.example.demotcs.Controller;
 
 import com.example.demotcs.Service.ArticleCategoryService;
 import com.example.demotcs.Service.BlogArticleService;
+import com.example.demotcs.Service.UserService;
 import com.example.demotcs.VO.BlogArticleMessageInfoVO;
 import com.example.demotcs.VO.BlogArticleTypeVO;
 import com.example.demotcs.VO.BlogArticleVO;
@@ -9,6 +10,7 @@ import com.example.demotcs.VO.BlogArticleVO;
 import com.example.demotcs.VO.ResultVO;
 import com.example.demotcs.entity.*;
 import com.example.demotcs.repository.BlogLostMessageRepository;
+import com.example.demotcs.repository.UserRepository;
 import com.example.demotcs.utils.ResultVOUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +31,14 @@ import java.util.stream.Collectors;
  */
 
 @RestController
+@RequestMapping("all")
 public class BlogArticleController {
 
     @Autowired
     private BlogArticleService service;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private ArticleCategoryService articleCategoryService;
@@ -40,33 +46,20 @@ public class BlogArticleController {
     @Autowired
     private BlogLostMessageRepository blogLostMessageRepository;
 
-
-
-    @RequestMapping("saveArticle")
-    public BlogArticle save(BlogArticle blogArticle){
-        return service.save(blogArticle);
-    }
-    @RequestMapping("saveUserArticle")
-    public BlogArticle saveUserArticle(BlogUserArticle blogUserArticle){
-        return service.saveUserArticle(blogUserArticle);
-    }
-
     @RequestMapping("findByAuthorArticle")
     public List<BlogArticle> findByAuthor(String author){
         return service.queryAuthor(author);
-
     }
+
     @RequestMapping("findByTypeArticle")
     public List<BlogArticle> findByType(Integer type){
         return service.queryType(type);
     }
 
-    /** 放入或取出垃圾桶*/
-    @RequestMapping("changeArticleStatus")
-    public void trash(Integer id) {
-        service.changeArticleStatus(id);
+    @RequestMapping("findByName")
+    public User findByName(String userName){
+        return userService.queryByUserName(userName);
     }
-
 
     @RequestMapping("list")
     public ResultVO List(){

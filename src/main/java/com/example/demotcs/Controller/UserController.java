@@ -2,6 +2,7 @@ package com.example.demotcs.Controller;
 
 import com.example.demotcs.Service.UserService;
 import com.example.demotcs.entity.User;
+import com.example.demotcs.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,17 +23,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("save")
-    public User save(User user){
+    @RequestMapping("saveUser")
+    public String save(User user){
         return userService.addUser(user);
     }
     @RequestMapping("queryAll")
     public List<User> findAll(){
         return userService.queryAll();
     }
-    @RequestMapping("findByName")
-    public User findByName(String userName){
-        return userService.queryByUserName(userName);
-    }
+
 
 }

@@ -2,6 +2,7 @@ package com.example.demotcs.repository;
 
 import com.example.demotcs.entity.Authority;
 import com.example.demotcs.entity.User;
+import com.example.demotcs.entity.UserRoles;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,13 +29,20 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository repository;
 
+    @Autowired
+    private UserRolesRepository rolesRepository;
+
     @Test
     public void saveTest(){
         User user = new User();
-        user.setUserName("hello");
-        user.setPassword("123123");
+        user.setUserName("magic");
+        user.setPassword("111111");
         user.setUserIcon("http://xxxxxx.jpg");
         repository.save(user);
+        UserRoles userRoles = new UserRoles();
+        userRoles.setRolesId(21);
+        userRoles.setUserId(user.getId());
+        rolesRepository.save(userRoles);
     }
     @Test
     public void find(){

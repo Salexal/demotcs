@@ -3,14 +3,11 @@ package com.example.demotcs.Service.impl;
 import com.example.demotcs.Enum.ArticleStatus;
 import com.example.demotcs.Service.BlogArticleService;
 import com.example.demotcs.entity.BlogArticle;
-import com.example.demotcs.entity.BlogUserArticle;
-import com.example.demotcs.entity.User;
+import com.example.demotcs.entity.role_user.BlogUserArticle;
 import com.example.demotcs.repository.BlogArticleRepository;
-import com.example.demotcs.utils.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
