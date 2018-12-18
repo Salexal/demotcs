@@ -47,39 +47,39 @@ public class BlogArticleController {
     private BlogLostMessageRepository blogLostMessageRepository;
 
     @RequestMapping("findByAuthorArticle")
-    public List<BlogArticle> findByAuthor(String author){
+    public List<BlogArticle> findByAuthor(String author) {
         return service.queryAuthor(author);
     }
 
     @RequestMapping("findByTypeArticle")
-    public BlogArticleTypeVO findByType(Integer type){
+    public BlogArticleTypeVO findByType(Integer type) {
         List<ArticleCategory> articleCategoryList = articleCategoryService.findAll();
         BlogArticleTypeVO blogArticleTypeVO = new BlogArticleTypeVO();
-        for(ArticleCategory articleCategory:articleCategoryList){
-            if(articleCategory.getType()==type){
+        for (ArticleCategory articleCategory : articleCategoryList) {
+            if (articleCategory.getType() == type) {
                 blogArticleTypeVO.setTypeName(articleCategory.getTypeName());
                 break;
             }
         }
         List<BlogArticle> blogArticleList = service.queryType(type);
         List<BlogArticleVO> blogArticleVOList = new ArrayList<>();
-        for(BlogArticle blogArticle:blogArticleList){
+        for (BlogArticle blogArticle : blogArticleList) {
 
-                BlogArticleVO blogArticleVO = new BlogArticleVO();
-                blogArticleVO.setArticleContent(blogArticle.getArticleContent());
-                blogArticleVO.setAuthor(blogArticle.getAuthor());
-                blogArticleVO.setType(type);
+            BlogArticleVO blogArticleVO = new BlogArticleVO();
+            BeanUtils.copyProperties(blogArticle, blogArticleVO);
+            if (blogArticleVO.getArticleContent().length() > 10) {
+                blogArticleVO.setArticleContent(blogArticleVO.getArticleContent().substring(0, 10) + "......");
+            }
 
-                List<BlogLostMessage> blogLostMessageList = blogLostMessageRepository.findByArticleId(blogArticle.getId());
-                List<BlogArticleMessageInfoVO> blogArticleMessageInfoVOList = new ArrayList<>();
-                for(BlogLostMessage blogLostMessage:blogLostMessageList){
-                    BlogArticleMessageInfoVO messageInfoVO = new BlogArticleMessageInfoVO();
-                    messageInfoVO.setMessage(blogLostMessage.getMessage());
-                    messageInfoVO.setAuthor(blogArticle.getAuthor());
-                    blogArticleMessageInfoVOList.add(messageInfoVO);
-                }
-                blogArticleVO.setLostMessage(blogArticleMessageInfoVOList);
-                blogArticleVOList.add(blogArticleVO);
+            List<BlogLostMessage> blogLostMessageList = blogLostMessageRepository.findByArticleId(blogArticle.getId());
+            List<BlogArticleMessageInfoVO> blogArticleMessageInfoVOList = new ArrayList<>();
+            for (BlogLostMessage blogLostMessage : blogLostMessageList) {
+                BlogArticleMessageInfoVO messageInfoVO = new BlogArticleMessageInfoVO();
+                BeanUtils.copyProperties(blogLostMessage,messageInfoVO);
+                blogArticleMessageInfoVOList.add(messageInfoVO);
+            }
+            blogArticleVO.setLostMessage(blogArticleMessageInfoVOList);
+            blogArticleVOList.add(blogArticleVO);
 
         }
         blogArticleTypeVO.setBlogArticleVOList(blogArticleVOList);
@@ -89,43 +89,45 @@ public class BlogArticleController {
     }
 
     @RequestMapping("findByName")
-    public User findByName(String userName){
+    public User findByName(String userName) {
         return userService.queryByUserName(userName);
     }
 
     @RequestMapping("list")
-    public ResultVO List(){
+    public ResultVO List() {
         /** 获取所有不在垃圾箱的文章 */
         List<BlogArticle> blogArticleList = service.queryAll();
         List<ArticleCategory> articleCategoryList = articleCategoryService.findAll();
 
         List<BlogArticleTypeVO> blogArticleTypeVOList = new ArrayList<>();
-        for(ArticleCategory articleCategory:articleCategoryList){
+        for (ArticleCategory articleCategory : articleCategoryList) {
 
             BlogArticleTypeVO blogArticleTypeVO = new BlogArticleTypeVO();
             blogArticleTypeVO.setType(articleCategory.getType());
             blogArticleTypeVO.setTypeName(articleCategory.getTypeName());
 
             List<BlogArticleVO> blogArticleVOList = new ArrayList<>();
-            for(BlogArticle blogArticle:blogArticleList){
+            for (BlogArticle blogArticle : blogArticleList) {
 
-                if(blogArticle.getType().equals(articleCategory.getType())){
+                if (blogArticle.getType().equals(articleCategory.getType())) {
                     BlogArticleVO blogArticleVO = new BlogArticleVO();
-                    BeanUtils.copyProperties(blogArticle,blogArticleVO);
-
+                    BeanUtils.copyProperties(blogArticle, blogArticleVO);
+                    if (blogArticleVO.getArticleContent().length() > 10) {
+                        blogArticleVO.setArticleContent(blogArticleVO.getArticleContent().substring(0, 10) + "......");
+                    }
                     List<BlogLostMessage> blogArticleMessageList = blogLostMessageRepository.findByArticleId(blogArticle.getId());
                     List<BlogArticleMessageInfoVO> blogArticleMessageInfoVOList = new ArrayList<>();
 
-                    for(BlogLostMessage blogLostMessage:blogArticleMessageList){
+                    for (BlogLostMessage blogLostMessage : blogArticleMessageList) {
 
                         BlogArticleMessageInfoVO messageInfoVO = new BlogArticleMessageInfoVO();
-                        messageInfoVO.setAuthor(blogLostMessage.getAuthorName());
+                        messageInfoVO.setAuthorName(blogLostMessage.getAuthorName());
                         messageInfoVO.setMessage(blogLostMessage.getMessage());
 
                         blogArticleMessageInfoVOList.add(messageInfoVO);
                     }
-                   blogArticleVO.setLostMessage(blogArticleMessageInfoVOList);
-                   blogArticleVOList.add(blogArticleVO);
+                    blogArticleVO.setLostMessage(blogArticleMessageInfoVOList);
+                    blogArticleVOList.add(blogArticleVO);
                 }
             }
             blogArticleTypeVO.setBlogArticleVOList(blogArticleVOList);

@@ -13,7 +13,7 @@ import lombok.Getter;
 public class BlogArticleMessageInfoVO {
 
 //    private Integer id;
-    private String author;
+    private String authorName;
     private String message;
 
 }

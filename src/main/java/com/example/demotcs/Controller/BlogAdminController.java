@@ -21,13 +21,6 @@ public class BlogAdminController {
     @Autowired
     private BlogArticleService service;
 
-    @Autowired
-    private ArticleCategoryService articleCategoryService;
-
-    @Autowired
-    private BlogLostMessageRepository blogLostMessageRepository;
-
-
     @RequestMapping("saveArticle")
     public BlogArticle save(BlogArticle blogArticle){
         return service.save(blogArticle);
@@ -35,9 +28,9 @@ public class BlogAdminController {
 
     /** 放入或取出垃圾桶*/
     @RequestMapping("changeArticleStatus")
-    public void trash(Integer id) {
+    public BlogArticle trash(Integer id) {
         service.changeArticleStatus(id);
+        return service.query(id);
     }
-
 
 }
