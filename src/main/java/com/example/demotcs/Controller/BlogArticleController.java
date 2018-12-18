@@ -52,8 +52,40 @@ public class BlogArticleController {
     }
 
     @RequestMapping("findByTypeArticle")
-    public List<BlogArticle> findByType(Integer type){
-        return service.queryType(type);
+    public BlogArticleTypeVO findByType(Integer type){
+        List<ArticleCategory> articleCategoryList = articleCategoryService.findAll();
+        BlogArticleTypeVO blogArticleTypeVO = new BlogArticleTypeVO();
+        for(ArticleCategory articleCategory:articleCategoryList){
+            if(articleCategory.getType()==type){
+                blogArticleTypeVO.setTypeName(articleCategory.getTypeName());
+                break;
+            }
+        }
+        List<BlogArticle> blogArticleList = service.queryType(type);
+        List<BlogArticleVO> blogArticleVOList = new ArrayList<>();
+        for(BlogArticle blogArticle:blogArticleList){
+
+                BlogArticleVO blogArticleVO = new BlogArticleVO();
+                blogArticleVO.setArticleContent(blogArticle.getArticleContent());
+                blogArticleVO.setAuthor(blogArticle.getAuthor());
+                blogArticleVO.setType(type);
+
+                List<BlogLostMessage> blogLostMessageList = blogLostMessageRepository.findByArticleId(blogArticle.getId());
+                List<BlogArticleMessageInfoVO> blogArticleMessageInfoVOList = new ArrayList<>();
+                for(BlogLostMessage blogLostMessage:blogLostMessageList){
+                    BlogArticleMessageInfoVO messageInfoVO = new BlogArticleMessageInfoVO();
+                    messageInfoVO.setMessage(blogLostMessage.getMessage());
+                    messageInfoVO.setAuthor(blogArticle.getAuthor());
+                    blogArticleMessageInfoVOList.add(messageInfoVO);
+                }
+                blogArticleVO.setLostMessage(blogArticleMessageInfoVOList);
+                blogArticleVOList.add(blogArticleVO);
+
+        }
+        blogArticleTypeVO.setBlogArticleVOList(blogArticleVOList);
+        blogArticleTypeVO.setType(type);
+
+        return blogArticleTypeVO;
     }
 
     @RequestMapping("findByName")
@@ -65,13 +97,6 @@ public class BlogArticleController {
     public ResultVO List(){
         /** 获取所有不在垃圾箱的文章 */
         List<BlogArticle> blogArticleList = service.queryAll();
-
-////        2. 查询类目(一次性查询)
-//        List<Integer> categoryTypeList = new ArrayList<>();
-////        传统方法
-//        for (BlogArticle productInfo : blogArticleList) {
-//            categoryTypeList.add(productInfo.getType());
-//        }
         List<ArticleCategory> articleCategoryList = articleCategoryService.findAll();
 
         List<BlogArticleTypeVO> blogArticleTypeVOList = new ArrayList<>();
