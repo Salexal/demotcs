@@ -8,6 +8,7 @@ import com.example.demotcs.repository.UserRolesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jackson.JsonObjectDeserializer;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String addUser(User user) {
+
         repository.save(user);
         UserRoles userRoles = new UserRoles();
         userRoles.setRolesId(21);

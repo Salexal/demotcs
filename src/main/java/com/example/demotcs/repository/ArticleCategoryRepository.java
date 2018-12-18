@@ -16,4 +16,5 @@ public interface ArticleCategoryRepository extends JpaRepository<ArticleCategory
 
     List<ArticleCategory> findByType(List<Integer> typeList);
 
+
 }
